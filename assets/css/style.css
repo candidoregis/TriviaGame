@@ -1,0 +1,46 @@
+@font-face {
+    font-family: Digital;
+    src:url("../fonts/digital-7.ttf");
+}
+
+html {
+    background-image: url(../image/questionsbg.jpg);
+}
+
+body {
+    width: 75%;
+    text-align: center;
+    position: relative;
+    right: 12.5%;
+    left: 12.5%;
+}
+
+.custom-title {
+    background-color: grey;
+    width: 60%;
+    margin-top: 20px;
+}
+
+.main-body{
+    background-color: aquamarine;
+    width: 90%;
+}
+
+.custom-timer {
+    background-color: rgb(24, 1, 1);
+    width: 30%;
+}
+
+.custom-timer h1 {
+    color: red;
+    font-family: Digital;
+    font-size: 60px;
+    margin: 0;
+    padding: 0;
+}
+
+.questions-board {
+    background-color: blue;
+    width: 90%;
+    margin: 5% auto;
+}
