@@ -14,28 +14,54 @@ html {
 body{
     height: 100%;
     margin: 0 15%;
+    /* line-height: ; */
 }
 
 .mainBody {
-    background-color: white;
     height: 100%;
 }
 
 #titleCage {
     padding: 20px;
-    width: 80%;
+    width: 90%;
 }
 
 .custom-title {
     background-image: url(../image/triviatitle.png);
-    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    object-fit: cover;
     width: 100%;
     height: 100%;
+    background-color: white;
 }
 
 #bodyCage {
     height: 100%;
     padding: 20px;
+}
+
+.timer-box{
+    background-color: black;
+}
+
+.custom-timer h1 {
+    color: red;
+    font-family: Digital;
+    font-size: 60px;
+    margin: 0;
+    padding: 0;
+}
+
+#questions-line{
+    background-color: black;
+    margin: 10px;
+}
+
+button {
+    margin: 1px;
+    padding: 5px;
 }
 
 /* body {
