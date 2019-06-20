@@ -32,22 +32,70 @@ class Question {
         this.wrongAnswers = wrongAnswers;
     }
 
-    verifyAnswer(userAnswer){
-        if (userAnswer == this.correctAnswer) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // verifyAnswer(userAnswer){
+    //     if (userAnswer == this.correctAnswer) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 };
 
+var result;
+
+function verifyAnswer(userAnswer){
+    if (userAnswer == this.correctAnswer) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function sortQuestion(max){
-    return Math.floor(Math.random() * (max - 0 + 1)) + 0;
+    var num = 0;
+    while (num==0){
+        num = Math.floor(Math.random() * (max - 0 + 1)) + 0;
+    }
+    return num;
 }
 
 function displayQuestion(question){
-    
+    $("#questions-line").text(question[0]);
+    for(var i=1;i<question.length;i++){
+        $("#answer"+i+"").text(i+") "+question[i]);
+    }
 }
 
-console.log(sortQuestion(questions.length));
+displayQuestion(questions[sortQuestion(questions.length)]);
 
+
+var index = joanOfArcInfoParts.indexOf(input);
+var valuesIndex = joanOfArcInfoValues[index];
+
+
+    $("#answer-buttons").on("click", function() {
+        
+        var chosenAnswer;
+        var optionVal = $(this).val();
+
+        switch (optionVal) {
+
+          case "1":
+            chosenAnswer = ;
+            break;
+
+          case "2":
+            chosenAnswer = (parseInt(firstNumber) + parseInt(secondNumber));
+            break;
+
+          case "3":
+            chosenAnswer = (parseInt(firstNumber) * parseInt(secondNumber));
+            break;
+
+          case "4":
+            chosenAnswer = (parseInt(firstNumber) / parseInt(secondNumber));
+            break;
+
+        }
+
+      });
