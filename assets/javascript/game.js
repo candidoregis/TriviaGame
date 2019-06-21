@@ -23,7 +23,7 @@ $(document).ready(function () {
         ["How many children has Queen Elizabeth the Second got?", "4", "resposta2", "resposta3", "resposta4"],
         ["Who said E=mc2?", "Einstein", "resposta2", "resposta3", "resposta4"],
         ["The May Queen, Wisley Crab, Lane's Prince Albert and Foxwhelps are all species of what?", "Apples"]
-    ]
+    ];
 
     var result;
     var winsCount = 0;
