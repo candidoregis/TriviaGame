@@ -31,6 +31,7 @@ var lossesCount = 0;
 var questionDisplayInterval;
 var time = 0;
 var timeoutFlag = false;
+var questionPos;
 
 function verifyAnswer(userAnswer, questionPos) {
     if (userAnswer == questions[questionPos][1]) {
@@ -60,7 +61,7 @@ function count() {
     time++;
     var converted = timeConverter(time);
     $("#clockTimer").text(converted);
-    if (time > 30) {
+    if (time >= 30) {
         stopQuiz();
         verifyTurnWinner("", questionPos, true)
     }
@@ -82,6 +83,7 @@ function timeConverter(t) {
 
 function startQuiz() {
     clearInterval(questionDisplayInterval);
+    time = 0;
     questionDisplayInterval = setInterval(count, 1000);
 }
 
@@ -92,8 +94,10 @@ function stopQuiz() {
 function verifyTurnWinner(answer, questionPos, timeoutFlag) {
     if (!timeoutFlag) {
         if (verifyAnswer(answer, questionPos)) {
-            alert("WIN"); // change to screen
+            //alert("WIN"); // change to screen
+            toggleScreen();
             winsCount++;
+
         } else {
             alert("You Lose"); // change to screen
             lossesCount++;
@@ -101,16 +105,42 @@ function verifyTurnWinner(answer, questionPos, timeoutFlag) {
         }
     } else {
         alert("TimeOut - You Lose"); // change to screen
-            lossesCount++;
+        lossesCount++;
+        //display correct answer
+    }
+    stopQuiz();
+    continueGame(winsCount + lossesCount);
+}
+
+function toggleScreen(){
+    $("#resultsScreen").toggleClass("resultOff",false);
+    $("#resultsScreen").toggleClass("resultOn",true);
+}
+
+function continueGame(playedGames) {
+    if (playedGames < 10) {
+        restartGame();
+    } else {
+        endingGame();
+        // restartGame();
     }
 }
-var questionPos = sortQuestion(questions.length);
-displayQuestion(questions[questionPos]);
 
+function restartGame() {
+    questionPos = sortQuestion(questions.length);
+    displayQuestion(questions[questionPos]);
+}
+
+function endingGame(){
+    alert("Fim de jogo");
+}
 
 //var index = joanOfArcInfoParts.indexOf(input);
 //var valuesIndex = joanOfArcInfoValues[index];
-
+$("#resBtn").on("click", function (){
+    $("#resultsScreen").toggleClass("resultOn",false);
+    $("#resultsScreen").toggleClass("resultOff",true);
+})
 
 $(".answer-buttons").on("click", function () {
 
@@ -136,6 +166,8 @@ $(".answer-buttons").on("click", function () {
             break;
 
     }
-    stopQuiz();
+    // stopQuiz();
     verifyTurnWinner(chosenAnswer, questionPos, false);
 });
+
+restartGame();
