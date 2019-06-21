@@ -19,6 +19,26 @@ body{
     position: relative;
 }
 
+.winEffect {
+    margin-top: 25%;
+    margin-bottom: 10%;
+    background-color: F6F6F6;
+    color: #fff;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0044FF, 0 0 20px #0044FF, 0 0 30px #0088FF, 0 0 40px #0088FF, 0 0 50px #00AAFF, 0 0 75px #00AAFF;
+	letter-spacing: 5px;
+	font: 80px 'MisoRegular';
+}
+
+.loseEffect {
+    margin-top: 25%;
+    margin-bottom: 10%;
+    background-color: F6F6F6;
+    color: #fff;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #FF0000, 0 0 20px #FF1100, 0 0 30px #FF2200, 0 0 40px #FF3300, 0 0 50px #FF4400, 0 0 75px #FF5500;
+	letter-spacing: 5px;
+	font: 80px 'MisoRegular';
+}
+
 .mainBody {
     height: 100%;
 }
@@ -82,8 +102,6 @@ button {
     right: 0px;
     bottom: 0px;
     width: 100%;
-    /* background-color: transparent; */
-    /* z-index: -5; */
     margin: 0px;
     padding: 0px;
     text-align: center;
@@ -93,25 +111,19 @@ button {
 .custom-wrap{
     background-color:transparent;
     z-index: -9999;
-    visibility: hidden; 
-    /* color: black; */
-    /* text-align: center; */
+    visibility: hidden;
 }
 
 .resultOn {
-    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
     animation-name: resultScreenIn;
-    animation-duration: 1.5s;
-    animation-fill-mode: both;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
 }
 
 .resultOff {
-    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
     animation-name: resultScreenOut;
-    animation-duration: 1.5s;
-    animation-fill-mode: both;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
 }
 
 @keyframes resultScreenIn {
@@ -121,7 +133,7 @@ button {
         visibility: hidden;
     }
     100% {
-        background-color: #001f3f;
+        background-color: #F6F6F6;
         z-index: 9999;
         visibility: visible;
     }
@@ -134,7 +146,7 @@ button {
         visibility: hidden;
     }
     0% {
-        background-color: #001f3f;
+        background-color: #F6F6F6;
         z-index: 9999;
         visibility: visible;
     }

@@ -61,8 +61,9 @@ function count() {
     time++;
     var converted = timeConverter(time);
     $("#clockTimer").text(converted);
-    if (time >= 30) {
+    if (time >= 10) {
         stopQuiz();
+        time = 0;
         verifyTurnWinner("", questionPos, true)
     }
 }
@@ -91,59 +92,81 @@ function stopQuiz() {
     clearInterval(questionDisplayInterval);
 }
 
+function toggleShadowClasses(flag) {
+    if (flag == "win") {
+        $("#hText").toggleClass("loseEffect", false);
+        $("#hText").toggleClass("winEffect", true);
+    } else if (flag == "lose") {
+        $("#hText").toggleClass("winEffect", false);
+        $("#hText").toggleClass("loseEffect", true);
+    }
+}
+
 function verifyTurnWinner(answer, questionPos, timeoutFlag) {
     if (!timeoutFlag) {
         if (verifyAnswer(answer, questionPos)) {
-            //alert("WIN"); // change to screen
-            toggleScreen();
+            toggleShadowClasses("win");
+            $("#hText").text("You Win");
             winsCount++;
 
         } else {
-            alert("You Lose"); // change to screen
-            lossesCount++;
+            toggleShadowClasses("lose");
+            $("#hText").text("You Lose");
             //display correct answer
+            lossesCount++;
         }
     } else {
-        alert("TimeOut - You Lose"); // change to screen
-        lossesCount++;
+        toggleShadowClasses("lose");
+        $("#hText").text("TimeOut - You Lose");
         //display correct answer
+        lossesCount++;
     }
+    toggleScreen();
     stopQuiz();
-    continueGame(winsCount + lossesCount);
 }
 
-function toggleScreen(){
-    $("#resultsScreen").toggleClass("resultOff",false);
-    $("#resultsScreen").toggleClass("resultOn",true);
+function toggleScreen() {
+    $("#resultsScreen").toggleClass("resultOff", false);
+    $("#resultsScreen").toggleClass("resultOn", true);
 }
 
 function continueGame(playedGames) {
     if (playedGames < 10) {
         restartGame();
     } else {
-        endingGame();
-        // restartGame();
+        $("#resBtn").text("Restart");
+        toggleShadowClasses("lose");
+        if (winsCount > lossesCount) {
+            toggleShadowClasses("win");
+            $("#hText").text("You Won the Game");
+        } else if (winsCount < lossesCount) {
+            $("#hText").text("You Lost the Game");
+        } else {
+            $("#hText").text("Draw");
+        }
+        toggleScreen();
+        winsCount = 0;
+        lossesCount = 0;
     }
 }
 
 function restartGame() {
     questionPos = sortQuestion(questions.length);
     displayQuestion(questions[questionPos]);
+    $("#resBtn").text("OK");
 }
 
-function endingGame(){
-    alert("Fim de jogo");
-}
-
-//var index = joanOfArcInfoParts.indexOf(input);
-//var valuesIndex = joanOfArcInfoValues[index];
-$("#resBtn").on("click", function (){
-    $("#resultsScreen").toggleClass("resultOn",false);
-    $("#resultsScreen").toggleClass("resultOff",true);
+$("#resBtn").on("click", function () {
+    $("#resultsScreen").toggleClass("resultOn", false);
+    $("#resultsScreen").toggleClass("resultOff", true);
+    if ($("#resBtn").text() == "OK") {
+        continueGame(winsCount + lossesCount);
+    } else {
+        restartGame();
+    }
 })
 
 $(".answer-buttons").on("click", function () {
-
     var chosenAnswer;
     var optionVal = $(this).val();
 
@@ -166,8 +189,7 @@ $(".answer-buttons").on("click", function () {
             break;
 
     }
-    // stopQuiz();
     verifyTurnWinner(chosenAnswer, questionPos, false);
 });
 
-restartGame();
+//restartGame();
