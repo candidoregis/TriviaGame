@@ -192,4 +192,4 @@ $(".answer-buttons").on("click", function () {
     verifyTurnWinner(chosenAnswer, questionPos, false);
 });
 
-//restartGame();
+restartGame();
