@@ -33,6 +33,7 @@ $(document).ready(function () {
     var timeoutFlag = false;
     var questionPos;
 
+    // FUNCTION TO VERIFY IF USER'S CHOICE IS THE RIGHT ONE
     function verifyAnswer(userAnswer, questionPos) {
         if (userAnswer == questions[questionPos][1]) {
             return true;
@@ -41,6 +42,7 @@ $(document).ready(function () {
         }
     }
 
+    // FUNCTION TO RANDOMLY CHOOSE ONE QUESTION FROM THE ARRAY
     function sortQuestion(max) {
         var num = 0;
         while (num == 0) {
@@ -49,6 +51,7 @@ $(document).ready(function () {
         return num;
     }
 
+    // FUNCTION TO DISPLAY THE QUESTION ON THE SCREEN
     function displayQuestion(question) {
         $("#questions-line").text(question[0]);
         for (var i = 1; i < question.length; i++) {
@@ -57,6 +60,7 @@ $(document).ready(function () {
         startQuiz();
     }
 
+    // FUNCTION USED TO RUN THE TIMER
     function count() {
         time++;
         var converted = timeConverter(time);
@@ -68,6 +72,7 @@ $(document).ready(function () {
         }
     }
 
+    // FUNCTION TO CONVERT THE TIME
     function timeConverter(t) {
         var minutes = Math.floor(t / 60);
         var seconds = t - (minutes * 60);
@@ -82,16 +87,19 @@ $(document).ready(function () {
         return minutes + ":" + seconds;
     }
 
+    // FUNCTION TO START THE TIMER
     function startQuiz() {
         clearInterval(questionDisplayInterval);
         time = 0;
         questionDisplayInterval = setInterval(count, 1000);
     }
 
+    // FUNCTION TO STOP THE TIMER
     function stopQuiz() {
         clearInterval(questionDisplayInterval);
     }
 
+    // FUNCTION TO SWITCH CLASSES FOR SHADOW EFFECT
     function toggleShadowClasses(flag) {
         if (flag == "win") {
             $("#hText").toggleClass("loseEffect", false);
@@ -102,34 +110,36 @@ $(document).ready(function () {
         }
     }
 
+    // FUNCTION THAT VERIFIES WHO WON THE TURN
     function verifyTurnWinner(answer, questionPos, timeoutFlag) {
         if (!timeoutFlag) {
             if (verifyAnswer(answer, questionPos)) {
                 toggleShadowClasses("win");
                 $("#hText").text("You Win");
                 winsCount++;
-
             } else {
                 toggleShadowClasses("lose");
                 $("#hText").text("You Lose");
-                //display correct answer
+                displayRightAnswer(); //need to finish
                 lossesCount++;
             }
         } else {
             toggleShadowClasses("lose");
             $("#hText").text("TimeOut - You Lose");
-            //display correct answer
+            displayRightAnswer(); //need to finish
             lossesCount++;
         }
         toggleScreen();
         stopQuiz();
     }
 
+    // FUNCTION TO SWITCH CLASS TO DISPLAY THE RESULTS 
     function toggleScreen() {
         $("#resultsScreen").toggleClass("resultOff", false);
         $("#resultsScreen").toggleClass("resultOn", true);
     }
 
+    // FUNCTION TO CONTINUE THE GAME AND DETERMINE THE WINNER
     function continueGame(playedGames) {
         if (playedGames < 10) {
             restartGame();
@@ -150,14 +160,20 @@ $(document).ready(function () {
         }
     }
 
+    // FUNCTION THAT (RE)START THE GAME
     function restartGame() {
         questionPos = sortQuestion(questions.length);
         displayQuestion(questions[questionPos]);
         $("#resBtn").text("OK");
     }
 
+    function displayRightAnswer(){
+
+    }
+
     restartGame();
 
+    // FUNCTION RESPONSIBLE FOR THE OK AND RESTART BUTTON
     $("#resBtn").on("click", function () {
         $("#resultsScreen").toggleClass("resultOn", false);
         $("#resultsScreen").toggleClass("resultOff", true);
@@ -166,8 +182,9 @@ $(document).ready(function () {
         } else {
             restartGame();
         }
-    })
+    });
 
+    // FUNCTION THAT GETS THE USER ANSWER
     $(".answer-buttons").on("click", function () {
         var chosenAnswer;
         var optionVal = $(this).val();
